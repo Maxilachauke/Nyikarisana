@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Basic styles for the profile sections */
+        .profile-section {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .profile-section form {
+            margin: 10px 0;
+        }
+
+        .profile-section form label {
+            display: inline-block;
+            width: 120px;
+            margin-right: 10px;
+        }
+
+        .profile-section form input,
+        .profile-section form select {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .profile-section button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile-section button:hover {
+            background-color: #45a049;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Profile</h1>
+        <!-- Link to NyikarisanaWebsite -->
+        <nav>
+            <ul>
+                <li><a href="NyikarisanaWebsite.html">Home</a></li>
+                <li><a href="NyikarisanaWebsite.html" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome, Admin!</h2>
+
+        <!-- Personal Information Section -->
+        <div class="profile-section">
+            <h2>Personal Information</h2>
+            <p><strong>Name:</strong> John Smith</p>
+            <p><strong>Role:</strong> Administrator</p>
+            <p><strong>Employee ID:</strong> A123456</p>
+            <p><strong>Age:</strong> 35</p>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="profile-section">
+            <h2>User Management</h2>
+            <p>Manage users across different profiles.</p>
+            <button onclick="openModal('addUserModal')">Add User</button>
+            <button onclick="openModal('editUserModal')">Edit User</button>
+            <button onclick="openModal('deleteUserModal')">Delete User</button>
+            <button onclick="openModal('viewAllUsersModal')">View All Users</button>
+            <button onclick="openModal('manageAlertsUsersModal')">Manage Alerts</button>
+        </div>
+
+        <!-- Add User Modal -->
+        <div id="addUserModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('addUserModal')">&times;</span>
+                <h3>Add User</h3>
+                <form id="addUserForm">
+                    <label for="add-name">Name:</label>
+                    <input type="text" id="add-name" name="add-name" required><br>
+                    <label for="add-surname">Surname:</label>
+                    <input type="text" id="add-surname" name="add-surname" required><br>
+                    <label for="add-id">ID Number:</label>
+                    <input type="text" id="add-id" name="add-id" required><br>
+                    <label for="add-role">Role:</label>
+                    <select id="add-role" name="add-role" required>
+                        <option value="Student">Student</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Parent">Parent</option>
+                        <option value="SGB">SGB</option>
+                        <option value="Admin">Admin</option>
+                    </select><br>
+                    <button type="button" onclick="submitAddUser()">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit User Modal -->
+        <div id="editUserModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('editUserModal')">&times;</span>
+                <h3>Edit User</h3>
+                <form id="editUserForm">
+                    <label for="edit-user-id">User ID:</label>
+                    <input type="text" id="edit-user-id" name="edit-user-id" required><br>
+                    <label for="edit-name">New Name:</label>
+                    <input type="text" id="edit-name" name="edit-name"><br>
+                    <label for="edit-surname">New Surname:</label>
+                    <input type="text" id="edit-surname" name="edit-surname"><br>
+                    <label for="edit-id">New ID Number:</label>
+                    <input type="text" id="edit-id" name="edit-id"><br>
+                    <label for="edit-role">New Role:</label>
+                    <select id="edit-role" name="edit-role">
+                        <option value="Student">Student</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Parent">Parent</option>
+                        <option value="SGB">SGB</option>
+                        <option value="Admin">Admin</option>
+                    </select><br>
+                    <button type="button" onclick="submitEditUser()">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete User Modal -->
+        <div id="deleteUserModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('deleteUserModal')">&times;</span>
+                <h3>Delete User</h3>
+                <form id="deleteUserForm">
+                    <label for="delete-user-id">User ID:</label>
+                    <input type="text" id="delete-user-id" name="delete-user-id" required><br>
+                    <button type="button" onclick="submitDeleteUser()">Confirm Delete</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- View All Users Modal -->
+        <div id="viewAllUsersModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('viewAllUsersModal')">&times;</span>
+                <h3>All Users</h3>
+                <p>Display all user information here.</p>
+            </div>
+        </div>
+        
+        <!-- Manage Alerts Modal -->
+<div id="manageAlertsUsersModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('manageAlertsUsersModal')">&times;</span>
+        <h2>Manage Alerts</h2>
+        <form id="manageAlertsForm">
+            <label for="userType">Select User Type:</label>
+            <select id="userType" name="userType" required>
+                <option value="" disabled selected>Select a user type</option>
+                <option value="students">Students</option>
+                <option value="teachers">Teachers</option>
+                <option value="parents">Parents</option>
+                <option value="principals">Principal</option>
+                <option value="sgb">SGB Members</option>
+            </select>
+
+            <label for="alertMessage">Alert Message:</label>
+            <textarea id="alertMessage" name="alertMessage" rows="4" placeholder="Enter your alert message here..." required></textarea>
+
+            <button type="button" onclick="createAlert()">Send Alert</button>
+        </form>
+    </div>
+</div>
+
+	<!-- Add Activity Modal -->
+<div id="addActivityModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addActivityModal')">&times;</span>
+        <h2>Add New Activity</h2>
+        <label for="activityName">Activity Name:</label>
+        <input type="text" id="activityName" placeholder="Enter activity name" />
+        <br>
+        <label for="activityDate">Activity Date:</label>
+        <input type="date" id="activityDate" />
+        <br>
+        <label for="activityTerm">Select Term:</label>
+        <select id="activityTerm">
+            <option value="Term 1">Term 1</option>
+            <option value="Term 2">Term 2</option>
+            <option value="Term 3">Term 3</option>
+            <option value="Term 4">Term 4</option>
+        </select>
+        <br>
+        <button onclick="addActivity()">Add Activity</button>
+    </div>
+</div>
+
+       <!-- Sports and Recreation Calendar Section -->
+<div class="profile-section">
+    <h2>Sports and Recreation Calendar</h2>
+    <p>Upcoming school trips and activities:</p>
+
+    <label for="term-select">Select Term:</label>
+    <select id="term-select" onchange="updateActivities()">
+        <option value="">-- Select Term --</option>
+        <option value="Term 1">Term 1</option>
+        <option value="Term 2">Term 2</option>
+        <option value="Term 3">Term 3</option>
+        <option value="Term 4">Term 4</option>
+    </select>
+
+    <div id="activities-container">
+        <!-- Term Activity Sections (Unchanged) -->
+        <div id="term1-activities" class="activity-list" style="display: none;">
+            <h3>Term 1 Activities</h3>
+            <ul id="term1-activity-list">
+                <!-- Activities dynamically added -->
+            </ul>
+        </div>
+        <div id="term2-activities" class="activity-list" style="display: none;">
+            <h3>Term 2 Activities</h3>
+            <ul id="term2-activity-list"></ul>
+        </div>
+        <div id="term3-activities" class="activity-list" style="display: none;">
+            <h3>Term 3 Activities</h3>
+            <ul id="term3-activity-list"></ul>
+        </div>
+        <div id="term4-activities" class="activity-list" style="display: none;">
+            <h3>Term 4 Activities</h3>
+            <ul id="term4-activity-list"></ul>
+        </div>
+    </div>
+
+    <button onclick="openModal('addActivityModal')">Add New Activity</button>
+</div>
+
+        <!-- Monitoring Section -->
+        <div class="profile-section">
+            <h2>Monitoring Performance</h2>
+            <p>Review performance metrics for all profiles.</p>
+            <a href="student-profile.html"><button>Student Performance</button></a>
+            <a href="teacher-profile.html"><button>Teacher Performance</button></a>
+            <a href="parent-profile.html"><button>Parent Feedback</button></a>
+            <a href="sgb-profile.html"><button>SGB Performance</button></a>
+            <a href="principal-profile.html"><button>Principal Performance</button></a>
+        </div>
+
+        <!-- Generate Reports Section -->
+<div class="profile-section">
+    <h2>Generate Reports</h2>
+    <p>Generate and export performance reports for users.</p>
+    <button onclick="openModal('generateReportModal')">Generate Report</button>
+</div>
+
+<div id="generateReportModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('generateReportModal')">&times;</span>
+        <h3>Generate Report</h3>
+        <form id="generateReportForm">
+            <label for="report-type">Report Type:</label>
+            <select id="report-type" name="report-type" required>
+                <option value="">Select Report Type</option>
+                
+                <option value="Student">Student Report</option>
+                <option value="Parent">Parent Report</option>
+                <option value="Teacher">Teacher Report</option>
+                <option value="SGB">SGB Report</option>
+                <option value="Principal">Principal Report</option>
+                
+            </select><br>
+
+            <!-- Additional dropdown for terms -->
+            <label for="report-term">Select Term:</label>
+            <select id="report-term" name="report-term" required>
+                <option value="Term 1">Term 1</option>
+                <option value="Term 2">Term 2</option>
+                <option value="Term 3">Term 3</option>
+                <option value="Term 4">Term 4</option>
+            </select><br>
+
+            <!-- Date Range -->
+            <label for="report-date">Date Range:</label>
+            <input type="date" id="report-date" name="report-date"><br>
+
+            <!-- Student ID field, visible only for Student Report -->
+            <div id="studentFields" style="display:none;">
+                <label for="report-student-id">Student ID:</label>
+                <input type="text" id="report-student-id" name="report-student-id"><br>
+
+                <!-- Dropdown for specific Student Report functions -->
+                <label for="student-function">Select Function:</label>
+                <select id="student-function" name="student-function">
+                    <option value="attendance">Attendance</option>
+                    <option value="grades">Grades</option>
+                    <option value="behavior">Behavior</option>
+                </select><br>
+
+                <!-- Additional fields based on selected function -->
+                <div id="functionDetails" style="display: none;">
+                    <p id="functionDescription"></p>
+                </div>
+            </div>
+
+            <!-- Common fields for Parent, Teacher, SGB, and Principal Reports -->
+            <div id="userFields" style="display:none;">
+                <label for="report-user-id">User ID:</label>
+                <input type="text" id="report-user-id" name="report-user-id"><br>
+
+                <label for="report-name">Name:</label>
+                <input type="text" id="report-name" name="report-name"><br>
+
+                <label for="user-function">Select Function:</label>
+                <select id="user-function" name="user-function">
+                    <option value="performance">Performance</option>
+                    <option value="attendance">Attendance</option>
+                    <option value="behavior">Behavior</option>
+                </select><br>
+
+                <!-- Additional fields based on selected user function -->
+                <div id="userFunctionDetails" style="display: none;">
+                    <p id="userFunctionDescription"></p>
+                </div>
+            </div>
+
+            <button type="button" onclick="generateReport()">Generate Report</button>
+        </form>
+    </div>
+</div>
+
+<!-- Injury Reports Section -->
+<div class="profile-section">
+    <h2>Injury Reports</h2>
+    <p>View and manage injury reports categorized by time frame.</p>
+    
+    <!-- Dropdown to select time frame -->
+    <label for="injury-time-frame">Select Time Frame:</label>
+    <select id="injury-time-frame" onchange="updateInjuryReports()">
+        <option value="">-- Select Time Frame --</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="term">Term</option>
+    </select>
+
+    <div id="injury-reports-container">
+        <!-- Weekly Injury Reports -->
+        <div id="weekly-injury-reports" class="injury-report-list" style="display: none;">
+            <h3>Weekly Injury Reports</h3>
+            <ul>
+                <li>
+                    <strong>Football Injury</strong> - Reported on October 15, 2024
+                    <button onclick="editReport('Football Injury', '2024-10-15')">Edit</button>
+                    <button onclick="addReport()">Add</button>
+                </li>
+                <li>
+                    <strong>Basketball Ankle Sprain</strong> - Reported on October 16, 2024
+                    <button onclick="editReport('Basketball Ankle Sprain', '2024-10-16')">Edit</button>
+                    <button onclick="addReport()">Add</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Monthly Injury Reports -->
+        <div id="monthly-injury-reports" class="injury-report-list" style="display: none;">
+            <h3>Monthly Injury Reports</h3>
+            <ul>
+                <li>
+                    <strong>Soccer Injury</strong> - Reported in September 2024
+                    <button onclick="editReport('Soccer Injury', '2024-09-30')">Edit</button>
+                    <button onclick="addReport()">Add</button>
+                </li>
+                <li>
+                    <strong>Gymnastics Fall</strong> - Reported in September 2024
+                    <button onclick="editReport('Gymnastics Fall', '2024-09-30')">Edit</button>
+                    <button onclick="addReport()">Add</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Term Injury Reports -->
+        <div id="term-injury-reports" class="injury-report-list" style="display: none;">
+            <h3>Term Injury Reports</h3>
+            <ul>
+                <li>
+                    <strong>Injury during Sports Day</strong> - Reported in Term 1, 2024
+                    <button onclick="editReport('Injury during Sports Day', '2024-03-15')">Edit</button>
+                    <button onclick="addReport()">Add</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Injury Report Form -->
+    <div id="injury-report-form" style="display: none;">
+        <h3>Edit or Add Injury Report</h3>
+        <form id="form-injury-report" onsubmit="submitInjuryReport(event)">
+            <label for="injury-title">Injury Title:</label>
+            <input type="text" id="injury-title" name="injury-title" required>
+            
+            <label for="injury-date">Date Reported:</label>
+            <input type="date" id="injury-date" name="injury-date" required>
+            
+            <button type="submit">Submit Report</button>
+            <button type="button" onclick="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+   <!-- Budget Report Section -->
+        <div class="profile-section">
+            <h2>Budget Report</h2>
+            <p>Manage and review budget details.</p>
+            <select id="report-timeframe" onchange="updateReportView()">
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="term">Term</option>
+            </select>
+            <button onclick="openModal('addBudgetModal')">Add Budget Entry</button>
+            <button onclick="viewBudgetReport()">View Budget Report</button>
+            <canvas id="budgetChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Add Budget Entry Modal -->
+        <div id="addBudgetModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('addBudgetModal')">&times;</span>
+                <h3>Add Budget Entry</h3>
+                <form id="addBudgetForm">
+                    <label for="budget-period">Budget Period:</label>
+                    <input type="text" id="budget-period" name="budget-period" placeholder="e.g., Week 1, Month 1, Term 1" required><br>
+                    <label for="allocated-budget">Allocated Budget:</label>
+                    <input type="number" id="allocated-budget" name="allocated-budget" required><br>
+                    <label for="actual-expenses">Actual Expenses:</label>
+                    <input type="number" id="actual-expenses" name="actual-expenses" required><br>
+                    <label for="remaining-budget">Remaining Budget:</label>
+                    <input type="number" id="remaining-budget" name="remaining-budget" required><br>
+                    <button type="button" onclick="submitBudgetEntry()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
+<script>
+
+
+    // Simulated database for alerts
+const alertsDatabase = {
+    teachers: [], // Array to hold alerts for teachers
+};
+
+// Function to handle alert creation
+function createAlert() {
+    const userType = document.getElementById('userType').value;
+    const alertMessage = document.getElementById('alertMessage').value;
+
+    if (!userType || !alertMessage) {
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    // Save alert in the "database"
+    if (userType === 'teachers') {
+        alertsDatabase.teachers.push(alertMessage);
+    }
+
+    // Reset the form
+    document.getElementById('manageAlertsForm').reset();
+
+    // Close the modal
+    closeModal('manageAlertsUsersModal');
+
+    // Show a confirmation message
+    alert('Alert has been successfully sent to ' + userType + '!');
+}
+
+    // Function to open modals
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    // Function to close modals
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // Function to handle adding a user
+    function submitAddUser() {
+        const form = document.getElementById('addUserForm');
+        // Add your user adding logic here
+        console.log("User added:", {
+            name: form['add-name'].value,
+            surname: form['add-surname'].value,
+            id: form['add-id'].value,
+            role: form['add-role'].value
+        });
+        closeModal('addUserModal');
+    }
+
+    // Function to handle editing a user
+    function submitEditUser() {
+        const form = document.getElementById('editUserForm');
+        // Add your user editing logic here
+        console.log("User edited:", {
+            id: form['edit-user-id'].value,
+            name: form['edit-name'].value,
+            surname: form['edit-surname'].value,
+            idNumber: form['edit-id'].value,
+            role: form['edit-role'].value
+        });
+        closeModal('editUserModal');
+    }
+
+    // Function to handle deleting a user
+    function submitDeleteUser() {
+        const form = document.getElementById('deleteUserForm');
+        // Add your user deleting logic here
+        console.log("User deleted with ID:", form['delete-user-id'].value);
+        closeModal('deleteUserModal');
+    }
+
+    function updateActivities() {
+        const term = document.getElementById('term-select').value;
+        const activitiesContainer = document.getElementById('activities-container');
+        
+        // Hide all activity lists
+        const activityLists = activitiesContainer.querySelectorAll('.activity-list');
+        activityLists.forEach(list => list.style.display = 'none');
+
+        // Show the selected term's activities
+        if (term) {
+            document.getElementById(`${term.toLowerCase().replace(' ', '')}-activities`).style.display = 'block';
+        }
+    }
+
+    // Function to handle report generation
+    function generateReport() {
+        const form = document.getElementById('generateReportForm');
+        // Add your report generation logic here
+        console.log("Report generated with details:", {
+            type: form['report-type'].value,
+            term: form['report-term'].value,
+            dateRange: form['report-date'].value,
+            studentId: form['report-student-id'].value,
+            userId: form['report-user-id'].value,
+            name: form['report-name'].value,
+        });
+        closeModal('generateReportModal');
+    }
+
+    // Optional: Logic to display fields based on selections
+    document.getElementById('report-type').addEventListener('change', function() {
+        const selectedType = this.value;
+        const studentFields = document.getElementById('studentFields');
+        const userFields = document.getElementById('userFields');
+
+        // Reset visibility
+        studentFields.style.display = 'none';
+        userFields.style.display = 'none';
+
+        // Show fields based on report type
+        if (selectedType === "Student") {
+            studentFields.style.display = 'block';
+        } else {
+            userFields.style.display = 'block';
+        }
+    });
+
+    function updateInjuryReports() {
+        const selectedTimeFrame = document.getElementById('injury-time-frame').value;
+        document.getElementById('weekly-injury-reports').style.display = 'none';
+        document.getElementById('monthly-injury-reports').style.display = 'none';
+        document.getElementById('term-injury-reports').style.display = 'none';
+        document.getElementById('injury-report-form').style.display = 'none';
+
+        if (selectedTimeFrame === 'weekly') {
+            document.getElementById('weekly-injury-reports').style.display = 'block';
+        } else if (selectedTimeFrame === 'monthly') {
+            document.getElementById('monthly-injury-reports').style.display = 'block';
+        } else if (selectedTimeFrame === 'term') {
+            document.getElementById('term-injury-reports').style.display = 'block';
+        }
+    }
+
+    function editReport(title, date) {
+        document.getElementById('injury-title').value = title;
+        document.getElementById('injury-date').value = date;
+        document.getElementById('injury-report-form').style.display = 'block';
+    }
+
+    function addReport() {
+        document.getElementById('injury-title').value = '';
+        document.getElementById('injury-date').value = '';
+        document.getElementById('injury-report-form').style.display = 'block';
+    }
+
+    function submitInjuryReport(event) {
+        event.preventDefault();
+        // Here you can add code to save the updated or new injury report.
+        alert('Injury report submitted: ' + document.getElementById('injury-title').value);
+        document.getElementById('injury-report-form').style.display = 'none';
+    }
+
+    function cancelEdit() {
+        document.getElementById('injury-report-form').style.display = 'none';
+    }
+    
+         // Script for handling modals
+         function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Function to submit a new budget entry
+        function submitBudgetEntry() {
+            // Collect data from the form
+            const period = document.getElementById('budget-period').value;
+            const allocatedBudget = document.getElementById('allocated-budget').value;
+            const actualExpenses = document.getElementById('actual-expenses').value;
+
+            // Add data to a local budget report (for demonstration purposes)
+            console.log(`Budget for ${period}: Allocated ${allocatedBudget}, Expenses ${actualExpenses}`);
+            closeModal('addBudgetModal');
+            alert('Budget entry added successfully!');
+        }
+
+        // Sample data for the budget chart
+        const budgetData = {
+            labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'],
+            datasets: [{
+                label: 'Allocated Budget',
+                data: [5000, 7000, 8000, 6000],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Actual Expenses',
+                data: [4500, 6500, 7800, 6200],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Function to display budget chart
+        function viewBudgetReport() {
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: budgetData,
+                options: {
+                    scales: {
+                        y: { beginAtZero: true }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Budget vs Actual Expenses'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</script>
+</body>
+</html>
