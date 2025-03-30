@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile System</title>
    
-    <button id="logout-btn" style="display:none;">Logout</button>
+    <!-- Logout Button -->
+    <button id="logout-btn" onclick="logout()" aria-label="Logout">Logout</button>
+
     <style>
+
+#logout-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #c82333;
+}
 
       /* Notification Button Styling */
 #notificationButton {
@@ -47,7 +68,7 @@
 
 #notificationsList ul {
     list-style-type: none;
-    padding: 0;
+    padding-left: 15px; /* Add padding to align content properly */
 }
 
 #notificationsList li {
@@ -378,6 +399,16 @@
 </div>
 
 <script>
+
+function toggleVisibility(id) {
+        const element = document.getElementById(id);
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function logout() {
+        // Redirect to the home page
+        window.location.href = 'index.html'; // Change 'index.html' to your actual home page filename
+    }
 
 function generateReport() {
     // Sample data for the report, you can replace this with dynamic data if needed

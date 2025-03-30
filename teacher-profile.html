@@ -175,6 +175,9 @@
 <div class="container">
     <h2>Teacher Profile</h2>
 
+     <!-- Logout Button -->
+     <button id="logout-btn" onclick="logout()" aria-label="Logout">Logout</button>
+
     <!-- Notification Section in Teacher's Profile -->
     <div id="notificationSection" class="hidden">
         <h4>Notifications</h4>
@@ -587,6 +590,16 @@
 
 <!-- JavaScript -->
 <script>
+
+function toggleVisibility(id) {
+        const element = document.getElementById(id);
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function logout() {
+        // Redirect to the home page
+        window.location.href = 'index.html'; // Change 'index.html' to your actual home page filename
+    }
 
 function viewTeacherScoring() {
         // Example scoring logic based on student performance

@@ -7,150 +7,136 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Profile Section */
-.profile-section {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-}
+        /* General Layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Dropdown Content */
-.dropdown-content {
-    display: none;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff; 
-    margin-top: 10px;
-}
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
 
-.dropdown-content.active {
-    display: block;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            cursor: pointer;
+        }
 
-/* Table Styling */
-#teacher-attendance-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
 
-#teacher-attendance-table th,
-#teacher-attendance-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
 
-#teacher-attendance-table th {
-    background-color: #f2f2f2;
-    text-align: left;
-    font-weight: bold;
-}
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
 
-#teacher-attendance-table td {
-    background-color: #fff;
-    color: #333;
-}
-
-/* Attendance Register */
-.attendance-register {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #e0f7fa;
-    border: 1px solid #b2ebf2;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.attendance-register h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-}
-
-.attendance-register p {
-    margin: 5px 0 0;
-    color: #666;
-}
-        /* Profile Section */
-.profile-section {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-}
-
-/* Dropdown Content */
-.dropdown-content {
-    display: none;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff; /* White background for dropdowns */
-    margin-top: 10px;
-}
-
-/* Form Styling */
-.profile-section form h3 {
-    margin-top: 20px;
-    color: #333; /* Darker text color for headings */
-}
-
-.profile-section label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555; /* Medium text color for labels */
-}
-
-.profile-section textarea,
-.profile-section select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-family: inherit;
-}
-
-.profile-section button {
-    padding: 10px 20px;
-    background-color: #4CAF50; /* Green background color */
-    color: #fff; /* White text color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s; /* Smooth background color transition */
-}
-
-.profile-section button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-        .profile-section {
+        /* Main Content Area */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
             margin: 20px;
+        }
+
+        .left-column {
+            background-color: #ffffff;
             padding: 20px;
-            border: 1px solid #ccc;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .right-column {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .profile-section {
+            margin-bottom: 20px;
+        }
+
+        .profile-section h2 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
             border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin: 0;
         }
 
         .dropdown-content {
             display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 10px;
         }
 
         .dropdown-content.active {
             display: block;
         }
 
-        .notification {
+        /* Table Styling */
+        #teacher-attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #teacher-attendance-table th,
+        #teacher-attendance-table td {
+            border: 1px solid #ddd;
             padding: 10px;
-            margin: 10px;
+        }
+
+        #teacher-attendance-table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        #teacher-attendance-table td {
+            background-color: #fff;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .notification {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
         }
 
         .notification.success {
@@ -161,6 +147,20 @@
         .notification.error {
             background-color: #f44336;
             color: white;
+        }
+
+        /* Form Input Styling */
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
         }
     </style>
 </head>
@@ -174,371 +174,143 @@
             </ul>
         </nav>
     </header>
-    <main id="main-content" class="dropdown-content active">
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('personal-info-content')">Personal Information</h2>
-            <div id="personal-info-content" class="dropdown-content">
-                <p><strong>Name:</strong> Jane Doe</p>
-                <p><strong>Position:</strong> Principal</p>
-                <p><strong>Contact:</strong> +1234567890</p>
-            </div>
-        </div>
 
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('kpi-overview-content')">KPI Overview</h2>
-            <div id="kpi-overview-content" class="dropdown-content">
-                <p><strong>Overall School Performance Rating:</strong> 4.7/5</p>
-                <p><strong>Student Satisfaction:</strong> 90%</p>
-                <p><strong>Teacher Satisfaction:</strong> 85%</p>
-                <p><strong>Attendance Rate:</strong> 95%</p>
-                <button id="alertButton" onclick="checkTeacherUpdates()">Check Teacher Updates</button>
-                <div id="alertMessage" style="display: none; color: red; font-weight: bold; margin-top: 10px;">
-                    Alert: A teacher has not updated their work recently!
+    <div class="container">
+        <!-- Left Column: Profile Info -->
+        <div class="left-column">
+            <div class="profile-section">
+                <h2 onclick="toggleDropdown('personal-info-content')">Personal Information</h2>
+                <div id="personal-info-content" class="dropdown-content">
+                    <p><strong>Name:</strong> Jane Doe</p>
+                    <p><strong>Position:</strong> Principal</p>
+                    <p><strong>Contact:</strong> +1234567890</p>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2 onclick="toggleDropdown('kpi-overview-content')">KPI Overview</h2>
+                <div id="kpi-overview-content" class="dropdown-content">
+                    <p><strong>Overall School Performance Rating:</strong> 4.7/5</p>
+                    <p><strong>Student Satisfaction:</strong> 90%</p>
+                    <p><strong>Teacher Satisfaction:</strong> 85%</p>
+                    <p><strong>Attendance Rate:</strong> 95%</p>
+                    <button class="btn" id="alertButton" onclick="checkTeacherUpdates()">Check Teacher Updates</button>
+                    <div id="alertMessage" style="display: none;" class="notification error">
+                        Alert: A teacher has not updated their work recently!
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('leadership-ratings-content')">Leadership Ratings</h2>
-            <div id="leadership-ratings-content" class="dropdown-content">
-                <label for="sgb-score">Rate SGB Leadership:</label>
-                <select id="sgb-score">
-                    <option value="1">1 - Poor</option>
-                    <option value="2">2 - Fair</option>
-                    <option value="3">3 - Good</option>
-                    <option value="4">4 - Very Good</option>
-                    <option value="5">5 - Excellent</option>
-                </select>
-                <button type="button" onclick="submitLeadershipScore('sgb')">Submit SGB Score</button>
-                <label for="hod-score">Rate HOD Leadership:</label>
-                <select id="hod-score">
-                    <option value="1">1 - Poor</option>
-                    <option value="2">2 - Fair</option>
-                    <option value="3">3 - Good</option>
-                    <option value="4">4 - Very Good</option>
-                    <option value="5">5 - Excellent</option>
-                </select>
-                <button type="button" onclick="submitLeadershipScore('hod')">Submit HOD Score</button>
-                <label for="teacher-score">Rate Teacher Leadership:</label>
-                <select id="teacher-score">
-                    <option value="1">1 - Poor</option>
-                    <option value="2">2 - Fair</option>
-                    <option value="3">3 - Good</option>
-                    <option value="4">4 - Very Good</option>
-                    <option value="5">5 - Excellent</option>
-                </select>
-                <button type="button" onclick="submitLeadershipScore('teacher')">Submit Teacher Score</button>
-            </div>
-        </div>
-
-        <!-- Reports Section -->
-<div class="profile-section">
-    <h2 onclick="toggleDropdown('reports-content')">Reports</h2>
-    <div id="reports-content" class="dropdown-content">
-        <form id="report-form">
-            <h3>Submit a Report</h3>
-            <label for="report-type">Select Report Type:</label>
-            <select id="report-type">
-                <option value="weekly">Weekly Report</option>
-                <option value="monthly">Monthly Report</option>
-                <option value="term">Term Report</option>
-            </select>
-            <textarea id="report-content" rows="4" cols="50" placeholder="Write your report here..."></textarea>
-            <button type="button" onclick="submitReport()">Submit Report</button>
-        </form>
-
-        <h3>Challenges, Ways to Resolve, and Actions Taken</h3>
-        <label for="challenges-content">Challenges:</label>
-        <textarea id="challenges-content" rows="3" cols="50" placeholder="Describe challenges faced..."></textarea>
-        <label for="resolution-content">Ways to Resolve:</label>
-        <textarea id="resolution-content" rows="3" cols="50" placeholder="Propose solutions..."></textarea>
-        <label for="action-content">Actions Taken:</label>
-        <textarea id="action-content" rows="3" cols="50" placeholder="Describe actions taken..."></textarea>
-        <button type="button" onclick="submitChallenges()">Submit Challenges</button>
-    </div>
-</div>
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('budget-report-content')">Budget Report</h2>
-            <div id="budget-report-content" class="dropdown-content">
-                <form id="budget-form">
-                    <h3>Budget Allocation</h3>
-                    <label for="allocation-item">Item:</label>
-                    <input type="text" id="allocation-item" name="allocation-item" placeholder="Enter item name" required>
-                    <label for="amount">Amount (USD):</label>
-                    <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
-                    <label for="allocation-date">Date:</label>
-                    <input type="date" id="allocation-date" name="allocation-date" required>
-                    <button type="button" onclick="submitBudget()">Submit Budget</button>
-                </form>
-                <h3>Budget Records</h3>
-                <table id="budget-records">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Amount (USD)</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Budget records will populate here dynamically -->
-                        <tr>
-                            <td>Books and Supplies</td>
-                            <td>500</td>
-                            <td>2024-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Lab Equipment</td>
-                            <td>1200</td>
-                            <td>2024-10-15</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('attendance-content')">Meeting Attendance</h2>
-            <div id="attendance-content" class="dropdown-content">
-                <p><strong>Meetings Attended:</strong></p>
-                <ul>
-                    <li>January 10, 2024 - Monthly Meeting</li>
-                    <li>February 5, 2024 - Budget Planning</li>
-                    <li>March 15, 2024 - Community Engagement</li>
-                    <li>April 20, 2024 - Review Meeting</li>
-                </ul>
-                <div class="graph-container" onclick="toggleDropdown('attendanceDropdown')"> <h3>Attendance Graph</h3> <p>Click to view attendance over time</p> </div>
-
-                <div class="dropdown-content" id="attendanceDropdown">
-                    <canvas id="attendanceChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('feedback-content')">Feedback</h2>
-            <div id="feedback-content" class="dropdown-content">
-                <form id="feedback-form" onsubmit="event.preventDefault(); submitFeedback();">
-                    <label for="feedback-type">Feedback Type:</label>
-                    <select id="feedback-type" name="feedback-type" required>
-                        <option value="">Select Type</option>
-                        <option value="positive">Positive</option>
-                        <option value="constructive">Constructive</option>
+        <!-- Right Column: Reports, Leadership, Budget -->
+        <div class="right-column">
+            <!-- Leadership Ratings Section -->
+            <div class="profile-section">
+                <h2 onclick="toggleDropdown('leadership-ratings-content')">Leadership Ratings</h2>
+                <div id="leadership-ratings-content" class="dropdown-content">
+                    <label for="sgb-score">Rate SGB Leadership:</label>
+                    <select id="sgb-score">
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
                     </select>
-                    <label for="feedback-comments">Comments:</label>
-                    <textarea id="feedback-comments" name="feedback-comments" rows="4" required></textarea>
-                    <button type="submit">Submit Feedback</button>
-                </form>
-                <h3>Previous Feedback</h3>
-                <ul id="feedback-records">
-                    <li>Great job on the recent project! (Positive)</li>
-                    <li>Consider improving communication with students. (Constructive)</li>
-                </ul>
+                    <button class="btn" type="button" onclick="submitLeadershipScore('sgb')">Submit SGB Score</button>
+
+                    <label for="hod-score">Rate HOD Leadership:</label>
+                    <select id="hod-score">
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                    <button class="btn" type="button" onclick="submitLeadershipScore('hod')">Submit HOD Score</button>
+
+                    <label for="teacher-score">Rate Teacher Leadership:</label>
+                    <select id="teacher-score">
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                    <button class="btn" type="button" onclick="submitLeadershipScore('teacher')">Submit Teacher Score</button>
+                </div>
             </div>
-        </div>
 
-        <div class="profile-section">
-            <h2 onclick="toggleDropdown('attendance-view')">Attendance Registers</h2>
-            <div id="attendance-view" class="dropdown-content">
-                <!-- Teacher Attendance -->
-                <div class="attendance-register" onclick="toggleDropdown('teacherAttendanceDropdown')">
-                    <h3>Teachers' Attendance</h3>
-                    <p>Click to view teacher attendance records</p>
+            <!-- Reports Section -->
+            <div class="profile-section">
+                <h2 onclick="toggleDropdown('reports-content')">Reports</h2>
+                <div id="reports-content" class="dropdown-content">
+                    <form id="report-form">
+                        <h3>Submit a Report</h3>
+                        <label for="report-type">Select Report Type:</label>
+                        <select id="report-type">
+                            <option value="weekly">Weekly Report</option>
+                            <option value="monthly">Monthly Report</option>
+                            <option value="term">Term Report</option>
+                        </select>
+                        <textarea id="report-content" rows="4" cols="50" placeholder="Write your report here..."></textarea>
+                        <button class="btn" type="button" onclick="submitReport()">Submit Report</button>
+                    </form>
                 </div>
-                <div class="dropdown-content" id="teacherAttendanceDropdown">
-                    <table>
-                        <tr>
-                            <th>Teacher Name</th>
-                            <th>Date</th>
-                            <th>Subject</th>
-                            <th>Attendance Status</th>
-                            <th>Comments</th>
-                        </tr>
-                        <tr>
-                            <td>Mr. John Smith</td>
-                            <td>2024-10-10</td>
-                            <td>Mathematics</td>
-                            <td>Present</td>
-                            <td>On time</td>
-                        </tr>
-                    </table>
-                </div>
+            </div>
 
-                <!-- Teacher Assistant Attendance -->
-                <div class="attendance-register" onclick="toggleDropdown('taAttendanceDropdown')">
-                    <h3>Teacher Assistants' Attendance</h3>
-                    <p>Click to view teacher assistant attendance records</p>
-                </div>
-                <div class="dropdown-content" id="taAttendanceDropdown">
-                    <table>
-                        <tr>
-                            <th>Teacher Assistant Name</th>
-                            <th>Date</th>
-                            <th>Subject</th>
-                            <th>Attendance Status</th>
-                            <th>Comments</th>
-                        </tr>
-                        <tr>
-                            <td>Ms. Sarah Doe</td>
-                            <td>2024-10-11</td>
-                            <td>Science</td>
-                            <td>Absent</td>
-                            <td>Medical leave</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <!-- SGB Attendance -->
-                <div class="attendance-register" onclick="toggleDropdown('sgbAttendanceDropdown')">
-                    <h3>SGB Members' Attendance</h3>
-                    <p>Click to view SGB attendance records</p>
-                </div>
-                <div class="dropdown-content" id="sgbAttendanceDropdown">
-                    <table>
-                        <tr>
-                            <th>SGB Member Name</th>
-                            <th>Date</th>
-                            <th>Meeting Type</th>
-                            <th>Attendance Status</th>
-                            <th>Comments</th>
-                        </tr>
-                        <tr>
-                            <td>Mr. Robert Brown</td>
-                            <td>2024-10-05</td>
-                            <td>Budget Planning</td>
-                            <td>Present</td>
-                            <td>Active participation</td>
-                        </tr>
-                    </table>
+            <!-- Budget Report Section -->
+            <div class="profile-section">
+                <h2 onclick="toggleDropdown('budget-report-content')">Budget Report</h2>
+                <div id="budget-report-content" class="dropdown-content">
+                    <form id="budget-form">
+                        <h3>Budget Allocation</h3>
+                        <label for="allocation-item">Item:</label>
+                        <input type="text" id="allocation-item" placeholder="Item name">
+                        <label for="allocation-amount">Amount (USD):</label>
+                        <input type="number" id="allocation-amount" placeholder="Amount">
+                        <button class="btn" type="button" onclick="submitBudget()">Submit Budget</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </main>
-    <footer>
-        <p>© 2024 My Website</p>
-    </footer>
+    </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            drawAttendanceGraph();
-
-            document.getElementById("sgb-attendance-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                submitSgbAttendance();
-            });
-
-            document.getElementById('grades-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                submitForm('grades-form', "Grade submitted successfully!");
-            });
-
-            document.getElementById('behavior-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                submitForm('behavior-form', "Behavior feedback submitted successfully!");
-            });
-
-            document.getElementById('attendance-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                submitForm('attendance-form', "Attendance submitted successfully!");
-            });
-        });
-
-        function drawAttendanceGraph() {
-            const ctx = document.getElementById('attendanceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [{
-                        label: 'Attendance Percentage',
-                        data: [90, 85, 92, 88],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: { beginAtZero: true }
-                    }
-                }
-            });
+        // Toggle visibility of dropdown sections
+        function toggleDropdown(sectionId) {
+            var content = document.getElementById(sectionId);
+            content.classList.toggle('active');
         }
 
-        function validateForm(formId) {
-            const form = document.getElementById(formId);
-            const inputs = form.querySelectorAll('input, textarea, select');
-            for (let input of inputs) {
-                if (!input.value.trim()) {
-                    alert(`Please fill in the ${input.name} field.`);
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        function showNotification(message, type = "info") {
-            const notification = document.createElement("div");
-            notification.className = `notification ${type}`;
-            notification.innerText = message;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-        }
-
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            if (dropdown) {
-                dropdown.classList.toggle('active');
-            }
-        }
-
-        function submitForm(formId, successMessage) {
-            if (validateForm(formId)) {
-                showNotification(successMessage, "success");
-            }
-        }
-
-        function submitFeedback() {
-            const feedbackType = document.getElementById("feedback-type").value;
-            const feedbackComments = document.getElementById("feedback-comments").value;
-
-            if (feedbackType && feedbackComments) {
-                const feedbackList = document.getElementById("feedback-records");
-                const newFeedback = document.createElement("li");
-                newFeedback.textContent = `${feedbackComments} (${feedbackType.charAt(0).toUpperCase() + feedbackType.slice(1)})`;
-                feedbackList.appendChild(newFeedback);
-
-                showNotification("Feedback submitted successfully!", "success");
-            } else {
-                showNotification("Please fill in all fields.", "error");
-            }
-        }
-
-        function submitReport() {
-            submitForm('report-form', "Report submitted successfully!");
-        }
-
-        function submitChallenges() {
-            const challenges = document.getElementById("challenges-content").value;
-            const resolutions = document.getElementById("resolution-content").value;
-            const actions = document.getElementById("action-content").value;
-            alert(`Challenges Submitted:\nChallenges: ${challenges}\nResolutions: ${resolutions}\nActions: ${actions}`);
-        }
-
-        function submitSgbAttendance() {
-            const date = document.getElementById("date").value;
-            const memberName = document.getElementById("sgb-member-name").value;
-            const attendanceStatus = document.getElementById("attendance-status").value;
-            alert(`SGB Attendance Submitted:\nDate: ${date}\nMember: ${memberName}\nStatus: ${attendanceStatus}`);
-        }
-
+        // Handle Teacher Updates Alert
         function checkTeacherUpdates() {
-            const hasUpdates = false;  // Replace with actual logic
-            const alertMessage = document.getElementById("alertMessage");
-            alertMessage.style.display = hasUpdates ? "none" : "block";
-            if (hasUpdates) {
-                alert("All teachers have updated their work recently.");
-            }
+            var alertMessage = document.getElementById("alertMessage");
+            alertMessage.style.display = "block";
+        }
+
+        // Submit Leadership Scores
+        function submitLeadershipScore(type) {
+            var score = document.getElementById(`${type}-score`).value;
+            alert(`${type.toUpperCase()} Leadership score submitted: ${score}`);
+        }
+
+        // Submit Report Form
+        function submitReport() {
+            var reportType = document.getElementById("report-type").value;
+            var reportContent = document.getElementById("report-content").value;
+            alert(`Report submitted: ${reportType} - ${reportContent}`);
+        }
+
+        // Submit Budget Form
+        function submitBudget() {
+            var item = document.getElementById("allocation-item").value;
+            var amount = document.getElementById("allocation-amount").value;
+            alert(`Budget submitted: ${item} - ${amount}`);
+        }
+
+        // Logout function (placeholders)
+        function logout() {
+            alert("You have logged out!");
         }
     </script>
 </body>

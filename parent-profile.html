@@ -209,6 +209,11 @@
     </header>
 
     <main>
+
+         <!-- Logout Button -->
+    <button id="logout-btn" onclick="logout()" aria-label="Logout">Logout</button>
+
+
         <div class="notification">
             <button id="notificationButton" class="dropdown-button">
                 Notifications <span class="badge" id="notificationCount">3</span>
@@ -229,6 +234,7 @@
                 <p><strong>Parent Name:</strong> Jane Doe</p>
                 <p><strong>Relationship:</strong> Mother</p>
                 <p><strong>Contact:</strong> +1234567890</p>
+                <p><strong>Email:</strong> nnnnn@gng.com</p>
             </div>
         </div>
 
@@ -238,6 +244,7 @@
                 <p><strong>Name:</strong> John Doe</p>
                 <p><strong>Grade:</strong> 10</p>
                 <p><strong>Student ID:</strong> 123456</p>
+                <p><strong>Email:</strong> nnnnn@gng.com</p>
             </div>
         </div>
 
@@ -250,6 +257,17 @@
     </main>
 
     <script>
+
+function toggleVisibility(id) {
+        const element = document.getElementById(id);
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function logout() {
+        // Redirect to the home page
+        window.location.href = 'index.html'; // Change 'index.html' to your actual home page filename
+    }
+
         function toggleDropdown(id) {
             const element = document.getElementById(id);
             element.classList.toggle('active');
