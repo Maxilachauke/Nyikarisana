@@ -6,14 +6,41 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Include Chart.js if needed -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    
     <style>
-        /* General Styles */
+
+#logout-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;   
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #c82333;
+}
+
+       /* General Reset for Body */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #eef2f3;
-    color: #333;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 100vh;
+}lor: #333;
 }
 
 header {
@@ -184,38 +211,30 @@ table th {
             <!-- Welcome Message & Notification Button -->
             <div class="alert">
                 <p>Welcome, SGB Member!</p>
-                <button id="notify-btn" class="notification-btn">Notification</button>
+                  <!-- Notification Button -->
+<button id="notify-btn">Notifications</button>
 
-                <!-- Notification Panel -->
-                <div id="notification-panel" style="display:none; border: 1px solid black; padding: 10px;">
-                <!-- You can include any content you want inside the notification panel -->
-                <p>This is the notification panel.</p>
-                <!-- Removed the close button -->
-                </div>
-                <!-- Notification Dropdown -->
-                <div id="notification-dropdown" class="notification-dropdown" style="display: none;">
-                    <ul id="notification-list"></ul>
+  <!-- Notification Panel -->
+  <div id="notification-panel" class="notification-panel" style="display: none;">
+    <ul id="notification-list"></ul>
+     <!-- Profile Results Example -->
+    <div id="profile-results">
+        <h3>Student A Profile</h3>
+        <p>Performance: <span id="student-performance">40</span></p>
+        <p>Attendance: <span id="student-attendance">75</span>%</p>
+    </div>
 
-                    <!-- Profile Results Example -->
-                    <div id="profile-results">
-                        <h3>Student A Profile</h3>
-                        <p>Performance: <span id="student-performance">40</span></p>
-                        <p>Attendance: <span id="student-attendance">75</span>%</p>
-                    </div>
+    <div id="teacher-results">
+        <h3>Teacher X Profile</h3>
+        <p>Performance (based on student pass rates): <span id="teacher-performance">45</span></p>
+        <p>Attendance: <span id="teacher-attendance">85</span>%</p>
+    </div>
+</div>
+</div>
+</div>
 
-                    <div id="teacher-results">
-                        <h3>Teacher X Profile</h3>
-                        <p>Performance (based on student pass rates): <span id="teacher-performance">45</span></p>
-                        <p>Attendance: <span id="teacher-attendance">85</span>%</p>
-                    </div>
-                </div>
+   
 
-                <!-- Profile Links -->
-                <div class="profile-links">
-                    <p>If you need to access the Teacher Profile, <a href="teacher-profile.html">click here</a>.</p>
-                    <p>If you need to access the Teacher Assistant Profile, <a href="teacher assistant-profile.html">click here</a>.</p>
-                </div>
-            </div>
 
             <!-- Pull Reports Section -->
             <div class="profile-section">
@@ -383,12 +402,18 @@ table th {
                 </div>
             </div>
         </main>
-    </div>
+    </div><!-- Logout Button -->
+    <button id="logout-btn" onclick="logout()" aria-label="Logout">Logout</button>
     <!-- End Container -->
     <script src="app.js"></script>
 </body>
 </html>
 <script>
+
+function logout() {
+        // Redirect to the home page
+        window.location.href = 'index.html'; // Change 'index.html' to your actual home page filename
+    }
     // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Notification Button
@@ -458,6 +483,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('submit-sgb-score-btn').addEventListener('click', function() {
         submitLeadershipScore('sgb');
     });
+
+    // Function to toggle the display of the leadership ratings section
+    function toggleLeadershipRatings() {
+        const leadershipOutput = document.getElementById('leadership-output');
+        
+        if (leadershipOutput.style.display === 'none' || leadershipOutput.style.display === '') {
+            // Show the leadership ratings content
+            leadershipOutput.style.display = 'block';
+        } else {
+            // Hide the leadership ratings content
+            leadershipOutput.style.display = 'none';
+        }
+    }
+
     document.getElementById('submit-hod-score-btn').addEventListener('click', function() {
         submitLeadershipScore('hod');
     });
