@@ -164,7 +164,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="checkLogin()">
     <header>
         <h1 onclick="toggleDropdown('main-content')">Principal Profile</h1>
         <nav>
@@ -276,6 +276,14 @@
     </div>
 
     <script>
+        // Check if user is logged in
+        function checkLogin() {
+            if (!localStorage.getItem('loggedIn')) {
+                alert('Please log in first!');
+                window.location.href = 'login.html'; // Redirect to login page if not logged in
+            }
+        }
+
         // Toggle visibility of dropdown sections
         function toggleDropdown(sectionId) {
             var content = document.getElementById(sectionId);
@@ -308,9 +316,11 @@
             alert(`Budget submitted: ${item} - ${amount}`);
         }
 
-        // Logout function (placeholders)
+        // Logout function
         function logout() {
+            localStorage.removeItem('loggedIn'); // Remove login status from local storage
             alert("You have logged out!");
+            window.location.href = 'login.html'; // Redirect to login page
         }
     </script>
 </body>
