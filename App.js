@@ -1,19 +1,13 @@
-import './styles.css';
-import React, { useState } from 'react';
-import './App.css';
-import RegisterForm from './RegisterForm';
-import LoginForm from './LoginForm';
+// Simple example to check Firebase is ready
+document.addEventListener("DOMContentLoaded", () => {
+    const statusDiv = document.getElementById("status");
 
-function App() {
-  return (
-    <div className="App">
-      <header>
-        <h1>Welcome to My Website</h1>
-        <RegisterForm />
-        <LoginForm />
-      </header>
-    </div>
-  );
-}
+    if (firebase.apps.length > 0) {
+        statusDiv.textContent = "Firebase initialized successfully!";
+    } else {
+        statusDiv.textContent = "Firebase NOT initialized.";
+    }
 
-export default App;
+    // Example: You can now use `db` and `auth` here
+    // For instance, to test Firestore connection or Auth state
+});
